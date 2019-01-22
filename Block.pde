@@ -1,25 +1,27 @@
 class Block {
-  float x;
-  float y;
+  BigDecimal x;
+  BigDecimal y;
   int w;
   int h;
-  long m;
-  double v;
+  BigInteger m;
+  BigDecimal v;
   
-  Block(float x, float y, int w, int h, long m, double v) {
-    this.x = x;
-    this.y = y;
+  Block(float x, float y, int w, int h, BigInteger m, double v) {
+    this.x = new BigDecimal(Float.toString(x));
+    this.y = new BigDecimal(Float.toString(y));
     this.w = w;
     this.h = h;
     this.m = m;
-    this.v = v;
+    this.v = new BigDecimal(Double.toString(v));
   }
   
-  float[] boundingBox() {
-    return new float[]{x,x+w,y,y+h};
+  BoundingBox boundingBox() {
+    BigDecimal right = x.add(new BigDecimal(Integer.toString(w)));
+    BigDecimal bottom = y.add(new BigDecimal(Integer.toString(h)));
+    return new BoundingBox(x, right, y, bottom);
   }
   
   void move() {
-    x += v;
+    x = x.add(v);
   }
 }
